@@ -22,10 +22,10 @@ if __name__ == "__main__":
     for i in range(4):
         for j in range(4):
             if(p_xy_w[i][j] == 0):
-                p_wi[0] += p_joint_xy[i][j]
+                p_wi[1] += p_joint_xy[i][j]
                 p_zi[0] += p_joint_xy[i][j]
             else:
-                p_wi[1] += p_joint_xy[i][j]
+                p_wi[0] += p_joint_xy[i][j]
                 p_zi[1] += p_joint_xy[i][j]
 
     p_joint_xw = np.zeros((2, 4))
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     Hzcondw = cond_entropy(p_joint_wz, cond_proba(p_joint_wz, p_wi))
     print("H(Z|W) = {}".format(Hzcondw))
 
-    Hwcondz = cond_entropy(p_joint_wz, cond_proba(p_joint_wz, p_zi))
+    Hwcondz = cond_entropy(p_joint_wz.T, cond_proba(p_joint_wz.T, p_zi))
     print("H(W|Z) = {}".format(Hwcondz))
 
     print("Verification of the Q4: ")
@@ -91,11 +91,11 @@ if __name__ == "__main__":
     Ixy = mutual_information(p_joint_xy, p_xi, p_yi)
     print("I(X;Y) = {}".format(Ixy))
 
-    Ixw = mutual_information(p_joint_xw.T, p_xi, p_wi)
+    Ixw = mutual_information(p_joint_xw, p_xi, p_wi)
     print("I(X;W) = {}".format(Ixw))
 
-    Iyz = mutual_information(p_joint_yz.T, p_yi, p_zi)
+    Iyz = mutual_information(p_joint_yz, p_yi, p_zi)
     print("I(Y;Z) = {}".format(Iyz))
 
-    Iwz = mutual_information(p_joint_wz, p_wi, p_zi)
+    Iwz = mutual_information(p_joint_wz.T, p_wi, p_zi)
     print("I(W;Z) = {}".format(Iwz))
