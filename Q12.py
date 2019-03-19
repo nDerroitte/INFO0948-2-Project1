@@ -2,6 +2,7 @@ import numpy as np
 from util import *
 from entropy import *
 from joint_entropy import *
+from mutual_information import *
 from conditional_entropy import *
 
 
@@ -29,15 +30,20 @@ if __name__ == "__main__":
 
     p_joint_xw = np.zeros((2, 4))
     p_joint_yw = np.zeros((2, 4))
+    p_joint_yz = np.zeros((2, 4))
     for i in range(2):
         for j in range(4):
             p_joint_xw[i][j] = p_xi[j] * p_wi[i]
-            p_joint_xy[i][j] = p_yi[j] * p_wi[i]
+            p_joint_yw[i][j] = p_yi[j] * p_wi[i]
+            p_joint_yz[i][j] = p_yi[j] * p_zi[i]
 
     p_joint_wz = np.zeros((2, 2))
     for i in range(2):
         for j in range(2):
-            p_joint_wz[i][j] = p_wi[i] * p_zi[j]
+            if i == j:
+                p_joint_wz[i][j] = 0
+            else:
+                p_joint_wz[i][j] = p_wi[i]
 
     print("Verification of the Q1: ")
 
@@ -54,7 +60,6 @@ if __name__ == "__main__":
     print("H(Z) = {}".format(Hz))
 
     print("Verification of the Q2: ")
-
     Hxy = joint_entropy(p_joint_xy)
     print("H(X, Y) = {}".format(Hxy))
 
@@ -78,5 +83,19 @@ if __name__ == "__main__":
     Hzcondw = cond_entropy(p_joint_wz, cond_proba(p_joint_wz, p_wi))
     print("H(Z|W) = {}".format(Hzcondw))
 
-    Hwcondz = cond_entropy(p_joint_wz.T, cond_proba(p_joint_wz.T, p_zi))
+    Hwcondz = cond_entropy(p_joint_wz, cond_proba(p_joint_wz, p_zi))
     print("H(W|Z) = {}".format(Hwcondz))
+
+    print("Verification of the Q4: ")
+
+    Ixy = mutual_information(p_joint_xy, p_xi, p_yi)
+    print("I(X;Y) = {}".format(Ixy))
+
+    Ixw = mutual_information(p_joint_xw.T, p_xi, p_wi)
+    print("I(X;W) = {}".format(Ixw))
+
+    Iyz = mutual_information(p_joint_yz.T, p_yi, p_zi)
+    print("I(Y;Z) = {}".format(Iyz))
+
+    Iwz = mutual_information(p_joint_wz, p_wi, p_zi)
+    print("I(W;Z) = {}".format(Iwz))
