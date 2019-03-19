@@ -61,16 +61,16 @@ if __name__ == "__main__":
 
     print("Verification of the Q2: ")
     Hxy = joint_entropy(p_joint_xy)
-    print("H(X, Y) = {}".format(Hxy))
+    print("H(X,Y) = {}".format(Hxy))
 
     Hxw = joint_entropy(p_joint_xw)
-    print("H(X, W) = {}".format(Hxw))
+    print("H(X,W) = {}".format(Hxw))
 
     Hyw = joint_entropy(p_joint_yw)
-    print("H(Y, W) = {}".format(Hyw))
+    print("H(Y,W) = {}".format(Hyw))
 
     Hwz = joint_entropy(p_joint_wz)
-    print("H(W, Z) = {}".format(Hwz))
+    print("H(W,Z) = {}".format(Hwz))
 
     print("Verification of the Q3: ")
 
