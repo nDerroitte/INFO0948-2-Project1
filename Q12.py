@@ -86,7 +86,7 @@ if __name__ == "__main__":
     Hwcondz = cond_entropy(p_joint_wz.T, cond_proba(p_joint_wz.T, p_zi))
     print("H(W|Z) = {}".format(Hwcondz))
 
-    print("Verification of the Q4: ")
+    print("Verification of the Q5: ")
 
     Ixy = mutual_information(p_joint_xy, p_xi, p_yi)
     print("I(X;Y) = {}".format(Ixy))
