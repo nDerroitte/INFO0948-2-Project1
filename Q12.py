@@ -64,7 +64,6 @@ if __name__ == "__main__":
             else:
                 p_joint_xyw[0][i][j] =  p_joint_xy[i][j]
                 p_joint_xyw[1][i][j]= 0
-    print(p_joint_xyw)
     # 2 : P(W,Z,X)
     p_joint_wzx = np.zeros((2,2,4))
     for i in range(2):
